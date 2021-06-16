@@ -1,15 +1,21 @@
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        y = 0
-        n = x
-        if n < 0:
-            return False
-        while n > 0:
-            y = y*10+n % 10
-            n //= 10
-        return True if y == x else False
+        return int(str(x)[::-1]) == x if x >= 0 else False
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    # ex1   true
+    x = 121
+    print(Solution().isPalindrome(x=x))
+
+    # ex2   false
     x = -121
-    print(Solution().isPalindrome(x))
+    print(Solution().isPalindrome(x=x))
+
+    # ex3   false
+    x = 10
+    print(Solution().isPalindrome(x=x))
+
+    # ex4   false
+    x = -101
+    print(Solution().isPalindrome(x=x))
