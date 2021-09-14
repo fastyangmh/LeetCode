@@ -20,7 +20,7 @@ class Solution:
         return missing_value
 
         '''
-        # time O(n) space O(1)
+        # time O(log n) space O(1)
         l, r = 0, len(arr)-1
         while l <= r:
             mid = l+(r-l)//2
