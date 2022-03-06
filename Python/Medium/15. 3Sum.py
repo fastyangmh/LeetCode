@@ -17,7 +17,7 @@ class Solution:
             while l < r:
                 s = nums[l] + nums[r]
                 if s == diff:
-                    if [v, nums[l], nums[r]] not in ans:
+                    if [v, nums[l], nums[r]] not in ans:    #O(N)
                         ans.append([v, nums[l], nums[r]])
                     l += 1
                     r -= 1
