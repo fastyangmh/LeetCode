@@ -1,35 +1,43 @@
+# import
+
+# class
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
-        for v in s:
-            if len(stack):
-                if stack[-1]+v in ['()', '[]', '{}']:
-                    stack.pop()
-                    continue
-            stack.append(v)
-        if len(stack):
-            return False
-        else:
-            return True
+        mapping = {")": "(", "]": "[", "}": "{"}
+        stacks = []
+
+        for c in s:
+            if c in mapping:
+                top_c = stacks.pop() if stacks else None
+                if top_c != mapping[c]:
+                    return False
+            else:
+                stacks.append(c)
+
+        return not stacks
 
 
-if __name__ == '__main__':
-    # ex1    ans true
+if __name__ == "__main__":
+    # Example 1:
     s = "()"
-    print(Solution().isValid(s=s))
+    assert Solution().isValid(s) is True, Solution().isValid(s)
 
-    # ex2    ans true
+    # Example 2:
     s = "()[]{}"
-    print(Solution().isValid(s=s))
+    assert Solution().isValid(s) is True, Solution().isValid(s)
 
-    # ex3    ans false
+    # Example 3:
     s = "(]"
-    print(Solution().isValid(s=s))
+    assert Solution().isValid(s) is False, Solution().isValid(s)
 
-    # ex4    ans false
-    s = "([)]"
-    print(Solution().isValid(s=s))
+    # Example 4:
+    s = "([])"
+    assert Solution().isValid(s) is True, Solution().isValid(s)
 
-    # ex5    ans true
-    s = "{[]}"
-    print(Solution().isValid(s=s))
+    # 7/100
+    s = "]"
+    assert Solution().isValid(s) is False, Solution().isValid(s)
+
+    # 9/100
+    s = "){"
+    assert Solution().isValid(s) is False, Solution().isValid(s)
