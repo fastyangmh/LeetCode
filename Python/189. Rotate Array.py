@@ -1,13 +1,20 @@
+from typing import List
+
+
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
         """
         Do not return anything, modify nums in-place instead.
         """
-        for _ in range(k):
-            nums.insert(0, nums.pop())
 
+        n = k % len(nums)
 
-if __name__ == "__main__":
-    nums = [1, 2, 3, 4, 5, 6, 7]
-    k = 3
-    print(Solution().rotate(nums, k))
+        def reverse(left, right):
+            while left < right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+
+        reverse(0, len(nums) - 1)
+        reverse(0, n - 1)
+        reverse(n, len(nums) - 1)
