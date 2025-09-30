@@ -1,20 +1,25 @@
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
-        sign = 1 if (dividend < 0) == (divisor < 0) else -1
+        sign = -1 if (dividend < 0) ^ (divisor < 0) else 1
+
+        a, b = abs(dividend), abs(divisor)
         quotient = 0
-        dividend = abs(dividend)
-        divisor = abs(divisor)
 
-        while dividend >= divisor:
-            multiplier, div = 1, divisor
+        while a >= b:
+            temp, multiple = b, 1
 
-            while dividend >= (div << 1):
-                div <<= 1
-                multiplier <<= 1
-            dividend -= div
-            quotient += multiplier
+            while a >= (temp << 1):
+                temp <<= 1
+                multiple <<= 1
 
-        if (quotient * sign) >= 2**31:
+            a -= temp
+            quotient += multiple
+
+        quotient *= sign
+
+        if quotient > 2**31 - 1:
             return 2**31 - 1
-
-        return quotient * sign
+        elif quotient < -(2**31):
+            return -(2**31)
+        else:
+            return quotient

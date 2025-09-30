@@ -3,33 +3,32 @@ from typing import List
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        n = len(nums)
-        hash_table = {}
-        for v in nums:
-            if v in hash_table:
-                hash_table[v] += 1
-            else:
-                hash_table[v] = 1
-            if hash_table[v] > n/2:
-                return v
+        # # method1
+        # nums.sort()
 
-        '''
+        # return nums[len(nums) // 2]
+
+        # method2
         majority, count = None, 0
-        for v in nums:
+
+        for num in nums:
             if count == 0:
-                majority = v
-            if majority == v:
-                count += 1
-            else:
-                count -= 1
-        return majority'''
+                majority = num
 
+            count += 1 if num == majority else -1
 
-if __name__ == '__main__':
-    # ex1    ans    3
-    nums = [3, 2, 3]
-    print(Solution().majorityElement(nums=nums))
+        return majority
 
-    # ex2    ans 2
-    nums = [2, 2, 1, 1, 1, 2, 2]
-    print(Solution().majorityElement(nums=nums))
+        # # method3
+        # hash_map = {}
+        # majority = None
+        # count = 0
+
+        # for n in nums:
+        #     hash_map[n] = 1 + hash_map.get(n, 0)
+
+        #     if hash_map[n] > count:
+        #         majority = n
+        #         count = hash_map[n]
+
+        # return majority
