@@ -6,9 +6,11 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        left = 0
+        non_zero_idx = 0
 
-        for right in range(len(nums)):
-            if nums[right] != 0:
-                nums[left], nums[right] = nums[right], nums[left]
-                left += 1
+        for idx in range(len(nums)):
+            if nums[idx] == 0:
+                continue
+
+            nums[idx], nums[non_zero_idx] = nums[non_zero_idx], nums[idx]
+            non_zero_idx += 1
