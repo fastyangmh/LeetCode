@@ -1,5 +1,6 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
+        # method1
         if len(s) != len(t):
             return False
 
@@ -14,3 +15,20 @@ class Solution:
             freq[c] -= 1
 
         return True
+
+        # # method2
+        # if len(s) != len(t):
+        #     return False
+
+        # def count(words):
+        #     results = {}
+
+        #     for c in words:
+        #         results[c] = results.get(c, 0) + 1
+
+        #     return results
+
+        # counter_s = count(s)
+        # counter_t = count(t)
+
+        # return counter_s == counter_t

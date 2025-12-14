@@ -3,14 +3,24 @@ from typing import List
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        map_ = {}
+        # # method1
+        # seen = {}
+
+        # for word in strs:
+        #     key = "".join(sorted(word))
+        #     seen.setdefault(key, []).append(word)
+
+        # return list(seen.values())
+
+        # method2
+        seen = {}
 
         for word in strs:
-            chr_arr = [0] * 26
+            chrs = [0] * 26
 
             for c in word:
-                chr_arr[ord(c) - ord("a")] += 1
+                chrs[ord(c) - ord("a")] += 1
 
-            map_.setdefault(tuple(chr_arr), []).append(word)
+            seen.setdefault(tuple(chrs), []).append(word)
 
-        return list(map_.values())
+        return list(seen.values())
