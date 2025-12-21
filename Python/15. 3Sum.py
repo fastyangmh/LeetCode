@@ -4,29 +4,31 @@ from typing import List
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
-        res = []
+        rets = []
 
         for i in range(len(nums)):
             if nums[i] > 0:
                 break
-            if i > 0 and nums[i] == nums[i - 1]:
+
+            if i > 0 and nums[i - 1] == nums[i]:
                 continue
 
             j = i + 1
             k = len(nums) - 1
 
             while j < k:
-                total = nums[i] + nums[j] + nums[k]
+                s = nums[i] + nums[j] + nums[k]
 
-                if total > 0:
-                    k -= 1
-                elif total < 0:
-                    j += 1
-                else:
-                    res.append([nums[i], nums[j], nums[k]])
-                    j += 1
+                if s == 0:
+                    rets.append([nums[i], nums[j], nums[k]])
 
-                    while nums[j] == nums[j - 1] and j < k:
+                    j += 1
+                    while nums[j - 1] == nums[j] and j < k:
                         j += 1
 
-        return res
+                elif s < 0:
+                    j += 1
+                else:
+                    k -= 1
+
+        return rets

@@ -7,18 +7,17 @@ class Solution:
             return 0
 
         unique_nums = set(nums)
-        ret = 0
+        result = 0
 
-        for num in unique_nums:
-            if num - 1 in unique_nums:
+        for x in unique_nums:
+            if x - 1 in unique_nums:
                 continue
 
-            count = 1
+            y = x
 
-            while num + 1 in unique_nums:
-                count += 1
-                num += 1
+            while y in unique_nums:
+                y += 1
 
-            ret = max(ret, count)
+            result = max(result, y - x)
 
-        return ret
+        return result
