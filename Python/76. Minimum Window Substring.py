@@ -3,14 +3,12 @@ from collections import Counter
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
+        if len(t) > len(s):
+            return ""
+
         need = Counter(t)
-        window = Counter()
-
-        left = 0
-        right = 0
-        valid = 0
-
-        start = 0
+        window = {}
+        left = right = start = valid = 0
         min_len = float("inf")
 
         while right < len(s):
@@ -18,7 +16,7 @@ class Solution:
             right += 1
 
             if c in need:
-                window[c] += 1
+                window[c] = window.get(c, 0) + 1
 
                 if window[c] == need[c]:
                     valid += 1
@@ -34,6 +32,7 @@ class Solution:
                 if d in need:
                     if window[d] == need[d]:
                         valid -= 1
+
                     window[d] -= 1
 
         return "" if min_len == float("inf") else s[start : start + min_len]

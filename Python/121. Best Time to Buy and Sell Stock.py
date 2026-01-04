@@ -1,15 +1,10 @@
-from typing import List
-
-
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        buy_price = prices[0]
         profit = 0
+        buy_price = float("inf")
 
-        for p in prices[1:]:
-            if buy_price > p:
-                buy_price = p
-            else:
-                profit = max(profit, p - buy_price)
+        for price in prices:
+            profit = max(profit, price - buy_price)
+            buy_price = min(buy_price, price)
 
         return profit
