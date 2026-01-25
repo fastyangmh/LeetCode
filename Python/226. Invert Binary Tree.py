@@ -5,19 +5,19 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         # # method1
         # if not root:
-        #     return 0
+        #     return root
 
         # queue = [root]
-        # depth = 0
 
         # while queue:
-        #     depth += 1
 
         #     for _ in range(len(queue)):
         #         node = queue.pop(0)
+
+        #         node.left, node.right = node.right, node.left
 
         #         if node.left:
         #             queue.append(node.left)
@@ -25,10 +25,15 @@ class Solution:
         #         if node.right:
         #             queue.append(node.right)
 
-        # return depth
+        # return root
 
         # method2
         if not root:
-            return 0
+            return root
 
-        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        left = self.invertTree(root.left)
+        right = self.invertTree(root.right)
+
+        root.left, root.right = right, left
+
+        return root
