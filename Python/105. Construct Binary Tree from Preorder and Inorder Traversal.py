@@ -6,48 +6,43 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        # preorder root -> left -> right
-        # inorder left -> root -> right
+        # # method1
+        # def dfs(pre, ino):
+        #     if not pre or not ino:
+        #         return None
 
-        # method1
-        # if not preorder or not inorder:
-        #     return None
+        #     root = TreeNode(pre[0])
 
-        # root_val = preorder[0]
-        # root = TreeNode(root_val)
+        #     in_idx = ino.index(root.val)
 
-        # idx = inorder.index(root_val)
+        #     left_ino = ino[:in_idx]
+        #     right_ino = ino[in_idx + 1 :]
 
-        # left_inorder = inorder[:idx]
-        # right_inorder = inorder[idx + 1 :]
+        #     left_pre = pre[1 : 1 + len(left_ino)]
+        #     right_pre = pre[1 + len(left_ino) :]
 
-        # left_preorder = preorder[
-        #     1 : 1 + len(left_inorder)
-        # ]  # left-close right-open, so need to plus 1
-        # right_preorder = preorder[1 + len(left_inorder) :]
+        #     root.left = dfs(left_pre, left_ino)
+        #     root.right = dfs(right_pre, right_ino)
 
-        # root.left = self.buildTree(left_preorder, left_inorder)
-        # root.right = self.buildTree(right_preorder, right_inorder)
+        #     return root
 
-        # return root
+        # return dfs(preorder, inorder)
 
         # method2
-        inorder_index = {val: i for i, val in enumerate(inorder)}
+        inorder_map = {val: idx for idx, val in enumerate(inorder)}
         self.pre_idx = 0
 
         def helper(left, right):
             if left > right:
                 return None
 
-            root_val = preorder[self.pre_idx]
+            root = TreeNode(preorder[self.pre_idx])
             self.pre_idx += 1
 
-            root = TreeNode(root_val)
+            in_idx = inorder_map[root.val]
 
-            idx = inorder_index[root_val]
-
-            root.left = helper(left, idx - 1)
-            root.right = helper(idx + 1, right)
+            root.left = helper(left, in_idx - 1)
+            root.right = helper(in_idx + 1, right)
 
             return root
 

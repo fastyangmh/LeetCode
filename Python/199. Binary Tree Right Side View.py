@@ -9,29 +9,31 @@ from collections import deque
 
 
 class Solution:
-    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         # # method1
         # if not root:
         #     return []
 
         # queue = deque([root])
-        # ans = []
+        # res = []
 
         # while queue:
-        #     tmp = []
 
-        #     for _ in range(len(queue)):
+        #     l = len(queue)
+
+        #     for idx in range(l):
         #         node = queue.popleft()
-        #         tmp.append(node.val)
+
+        #         if idx == l - 1:
+        #             res.append(node.val)
 
         #         if node.left:
         #             queue.append(node.left)
+
         #         if node.right:
         #             queue.append(node.right)
 
-        #     ans.append(tmp)
-
-        # return ans
+        # return res
 
         # method2
         res = []
@@ -40,13 +42,11 @@ class Solution:
             if not node:
                 return
 
-            if len(res) == depth:
-                res.append([])
+            if depth == len(res):
+                res.append(node.val)
 
-            res[depth].append(node.val)
-
-            dfs(node.left, depth + 1)
             dfs(node.right, depth + 1)
+            dfs(node.left, depth + 1)
 
         dfs(root, 0)
 
