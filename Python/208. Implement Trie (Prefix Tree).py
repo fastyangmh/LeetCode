@@ -1,17 +1,16 @@
 class Trie:
 
     def __init__(self):
-        self.children = {}
+        self.data = {}
         self.is_end = False
 
     def insert(self, word: str) -> None:
         node = self
 
         for ch in word:
-            if ch not in node.children:
-                trie = Trie()
-                node.children[ch] = trie
-            node = node.children[ch]
+            if ch not in node.data:
+                node.data[ch] = Trie()
+            node = node.data[ch]
 
         node.is_end = True
 
@@ -19,10 +18,9 @@ class Trie:
         node = self
 
         for ch in word:
-            if ch not in node.children:
+            node = node.data.get(ch, None)
+            if node is None:
                 return False
-
-            node = node.children[ch]
 
         return node.is_end
 
@@ -30,10 +28,9 @@ class Trie:
         node = self
 
         for ch in prefix:
-            if ch not in node.children:
+            node = node.data.get(ch, None)
+            if node is None:
                 return False
-
-            node = node.children[ch]
 
         return True
 
