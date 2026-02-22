@@ -1,20 +1,20 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        res = []
-        path = []
-
         def is_palindrome(substring):
             l, r = 0, len(substring) - 1
 
             while l <= r:
                 if substring[l] != substring[r]:
                     return False
+
                 l += 1
                 r -= 1
 
             return True
 
-        def backtrack(start):
+        res = []
+
+        def backtrack(start, path):
             if start == len(s):
                 res.append(path[:])
                 return
@@ -24,9 +24,9 @@ class Solution:
 
                 if is_palindrome(substring):
                     path.append(substring)
-                    backtrack(end)
+                    backtrack(end, path)
                     path.pop()
 
-        backtrack(0)
+        backtrack(0, [])
 
         return res

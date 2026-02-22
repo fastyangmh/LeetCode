@@ -1,18 +1,14 @@
-from typing import List
-
-
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()
-
         res = []
 
-        def dfs(start, comb, total):
+        def backtrack(start, path, total):
             if total == target:
-                res.append(comb)
+                res.append(path[:])
                 return
 
-            if total > target or start >= len(candidates):
+            if start >= len(candidates):
                 return
 
             for idx in range(start, len(candidates)):
@@ -22,7 +18,10 @@ class Solution:
                 if total + candidates[idx] > target:
                     break
 
-                dfs(idx + 1, comb + [candidates[idx]], total + candidates[idx])
+                path.append(candidates[idx])
+                backtrack(idx + 1, path, total + candidates[idx])
+                path.pop()
 
-        dfs(0, [], 0)
+        backtrack(0, [], 0)
+
         return res

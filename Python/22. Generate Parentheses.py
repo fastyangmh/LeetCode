@@ -40,20 +40,17 @@ class Solution:
         # method2
         res = []
 
-        def backtrack(path, left, right):
-            if len(path) == 2 * n:
-                res.append("".join(path))
+        def backtrack(s, open_cnt, close_cnt):
+            if len(s) == 2 * n:
+                res.append(s)
+                return
 
-            if left < n:
-                path.append("(")
-                backtrack(path, left + 1, right)
-                path.pop()
+            if open_cnt < n:
+                backtrack(s + "(", open_cnt + 1, close_cnt)
 
-            if right < left:
-                path.append(")")
-                backtrack(path, left, right + 1)
-                path.pop()
+            if close_cnt < open_cnt:
+                backtrack(s + ")", open_cnt, close_cnt + 1)
 
-        backtrack([], 0, 0)
+        backtrack("", 0, 0)
 
         return res
