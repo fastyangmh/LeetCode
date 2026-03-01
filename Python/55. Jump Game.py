@@ -1,6 +1,3 @@
-from typing import List
-
-
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         # # method1
@@ -19,10 +16,13 @@ class Solution:
         # method2
         max_reach = 0
 
-        for idx in range(len(nums)):
-            if idx > max_reach:
+        for idx, jump in enumerate(nums):
+            if max_reach < idx:
                 return False
-            max_reach = max(max_reach, idx + nums[idx])
+
+            max_reach = max(max_reach, idx + jump)
 
             if max_reach >= len(nums) - 1:
                 return True
+
+        return True
