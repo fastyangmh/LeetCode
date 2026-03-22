@@ -1,61 +1,80 @@
+from collections import deque
+
+
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        # # method1 mine
-        # m, n = len(board), len(board[0])
-        # directions = ((0, 1), (0, -1), (1, 0), (-1, 0))
-        # paths = set()
+        # # method1
+        # rows, cols = len(board), len(board[0])
 
-        # def handler(y, x):
-        #     if board[y][x] == "X" or (y, x) in paths:
+        # def dfs(r, c):
+        #     if not (0 <= r < rows and 0 <= c < cols and board[r][c] == "O"):
         #         return
-        #     paths.add((y, x))
 
-        #     for dy, dx in directions:
-        #         if not 0 <= x + dx < n or not 0 <= y + dy < m:
-        #             continue
+        #     board[r][c] = "#"
 
-        #         handler(y + dy, x + dx)
+        #     dfs(r + 1, c)
+        #     dfs(r - 1, c)
+        #     dfs(r, c + 1)
+        #     dfs(r, c - 1)
 
-        # for y in range(m):
-        #     for x in range(n):
-        #         handler(y, x)
+        # for r in range(rows):
+        #     dfs(r, 0)
+        #     dfs(r, cols - 1)
 
-        #         if not any(
-        #             y_ == 0 or y_ == m - 1 or x_ == 0 or x_ == n - 1 for y_, x_ in paths
-        #         ):
-        #             for y_, x_ in paths:
-        #                 board[y_][x_] = "X"
+        # for c in range(cols):
+        #     dfs(0, c)
+        #     dfs(rows - 1, c)
 
-        #         paths = set()
+        # for r in range(rows):
+        #     for c in range(cols):
+        #         if board[r][c] != "#":
+        #             board[r][c] = "X"
+        #         else:
+        #             board[r][c] = "O"
 
         # method2
         rows, cols = len(board), len(board[0])
 
-        def dfs(r, c):
-            if r < 0 or r >= rows or c < 0 or c >= cols or board[r][c] != "O":
-                return
+        def bfs(starts):
+            for r, c in starts:
+                board[r][c] = "#"
 
-            board[r][c] = "#"
+            queue = deque(starts)
 
-            dfs(r + 1, c)
-            dfs(r - 1, c)
-            dfs(r, c + 1)
-            dfs(r, c - 1)
+            while queue:
+                r, c = queue.popleft()
+
+                for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    nr, nc = r + dr, c + dc
+
+                    if not (0 <= nr < rows and 0 <= nc < cols and board[nr][nc] == "O"):
+                        continue
+
+                    board[nr][nc] = "#"
+                    queue.append((nr, nc))
+
+        starts = []
 
         for r in range(rows):
-            dfs(r, 0)
-            dfs(r, cols - 1)
+            if board[r][0] == "O":
+                starts.append((r, 0))
+            if board[r][cols - 1] == "O":
+                starts.append((r, cols - 1))
 
         for c in range(cols):
-            dfs(0, c)
-            dfs(rows - 1, c)
+            if board[0][c] == "O":
+                starts.append((0, c))
+            if board[rows - 1][c] == "O":
+                starts.append((rows - 1, c))
+
+        bfs(starts)
 
         for r in range(rows):
             for c in range(cols):
-                if board[r][c] == "O":
+                if board[r][c] != "#":
                     board[r][c] = "X"
-                elif board[r][c] == "#":
+                else:
                     board[r][c] = "O"

@@ -1,66 +1,61 @@
 from collections import deque
-from typing import List
 
 
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        # method1
-        graph = {c: [] for c in range(numCourses)}
-        indegree = [0] * numCourses
-
-        for a, b in prerequisites:
-            graph[b].append(a)
-            indegree[a] += 1
-
-        queue = deque([course for course, ind in enumerate(indegree) if ind == 0])
-        finished = 0
-        ordering = []
-
-        while queue:
-            course = queue.popleft()
-            ordering.append(course)
-            finished += 1
-
-            for next_course in graph[course]:
-                indegree[next_course] -= 1
-
-                if indegree[next_course] == 0:
-                    queue.append(next_course)
-
-        return ordering if finished == numCourses else []
-
-        # # method2 #NOTE: dfs is post-order traversal, left -> right -> root
-        # graph = {c: [] for c in range(numCourses)}
-        # visited = [0] * numCourses
-        # ordering = []
+        # # method1
+        # graph = {}
+        # indegree = [0] * numCourses
 
         # for a, b in prerequisites:
-        #     graph[b].append(a)
+        #     graph.setdefault(b, []).append(a)
+        #     indegree[a] += 1
 
-        # def dfs(course):
-        #     if visited[course] == 1:
-        #         return False
+        # queue = deque([k for k, v in enumerate(indegree) if v == 0])
+        # ans = []
 
-        #     if visited[course] == 2:
-        #         return True
+        # while queue:
+        #     node = queue.popleft()
+        #     ans.append(node)
 
-        #     visited[course] = 1
+        #     for next_course in graph.get(node, []):
+        #         indegree[next_course] -= 1
 
-        #     for next_course in graph[course]:
-        #         if not dfs(next_course):
-        #             return False
+        #         if indegree[next_course] == 0:
+        #             queue.append(next_course)
 
-        #     visited[course] = 2
-        #     ordering.append(course)
+        # return ans if len(ans) == numCourses else []
 
-        #     return True
+        # method2
+        graph = {}
 
-        # finished = 0
+        for a, b in prerequisites:
+            graph.setdefault(b, []).append(a)
 
-        # for course in range(numCourses):
-        #     if not dfs(course):
-        #         continue
+        visited = [0] * numCourses
+        ans = []
 
-        #     finished += 1
+        def dfs(course):
+            if visited[course] == 1:
+                return False
 
-        # return ordering[::-1] if finished == numCourses else []
+            if visited[course] == 2:
+                return True
+
+            visited[course] = 1
+
+            for next_course in graph.get(course, []):
+                if not dfs(next_course):
+                    return False
+
+            visited[course] = 2
+
+            ans.append(course)
+
+            return True
+
+        for course in range(numCourses):
+            if not dfs(course):
+                continue
+
+        return ans[::-1] if len(ans) == numCourses else []
