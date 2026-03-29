@@ -5,37 +5,40 @@ class Solution:
         #     while l >= 0 and r < len(s) and s[l] == s[r]:
         #         l -= 1
         #         r += 1
-        #     return s[l + 1 : r]  # slicing is left-inclusive and right-exclusive
 
-        # res = ""
+        #     return l + 1, r - 1
+
+        # start = end = 0
 
         # for i in range(len(s)):
-        #     odd = expand(i, i)
-        #     even = expand(i, i + 1)
+        #     l1, r1 = expand(i, i)
+        #     l2, r2 = expand(i, i + 1)
 
-        #     res = max(res, odd, even, key=len)
+        #     if r1 - l1 > end - start:
+        #         end, start = r1, l1
+        #     if r2 - l2 > end - start:
+        #         end, start = r2, l2
 
-        # return res
+        # return s[start : end + 1]
 
         # method2
-        def expand(l, r):
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                l -= 1
-                r += 1
-            return (
-                r - l - 1
-            )  # it's similar method1. [l+1, r-1] -> (r-1) - (l+1) +1 -> r - l - 1
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
 
-        start = end = 0
+        for i in range(n):
+            dp[i][i] = True
 
-        for i in range(len(s)):
-            odd = expand(i, i)
-            even = expand(i, i + 1)
+        start = 0
+        max_len = 1
 
-            max_len = max(odd, even)
+        for length in range(2, n + 1):
+            for i in range(n - length + 1):
+                j = i + length - 1
 
-            if max_len > end - start:
-                start = i - (max_len - 1) // 2
-                end = i + max_len // 2
+                dp[i][j] = (s[i] == s[j]) and (j - i <= 2 or dp[i + 1][j - 1])
 
-        return s[start : end + 1]
+                if dp[i][j] and length > max_len:
+                    start = i
+                    max_len = length
+
+        return s[start : start + max_len]
