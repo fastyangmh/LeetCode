@@ -1,4 +1,4 @@
-from typing import List
+from collections import deque
 
 
 class Solution:
@@ -14,25 +14,31 @@ class Solution:
 
                 dp[curr] = min(dp[curr], dp[curr - coin] + 1)
 
-        return dp[amount] if dp[amount] != float("inf") else -1
+        return dp[-1] if dp[-1] != float("inf") else -1
 
-        # # method2
+        # method2
         # if amount == 0:
         #     return 0
 
-        # visited = set([0])
-        # queue = [(0, 0)]
+        # queue = deque([0])
+        # seen = set([0])
+        # count = 0
 
         # while queue:
-        #     curr, steps = queue.pop(0)
+        #     count += 1
 
-        #     for coin in coins:
-        #         nxt = curr + coin
-        #         if nxt == amount:
-        #             return steps + 1
+        #     for _ in range(len(queue)):
+        #         curr = queue.popleft()
 
-        #         if nxt < amount and nxt not in visited:
-        #             visited.add(nxt)
-        #             queue.append((nxt, steps + 1))
+        #         for coin in coins:
+        #             nxt = coin + curr
+
+        #             if nxt == amount:
+        #                 return count
+        #             elif nxt > amount:
+        #                 continue
+        #             elif nxt not in seen:
+        #                 seen.add(nxt)
+        #                 queue.append(nxt)
 
         # return -1

@@ -4,34 +4,29 @@ class Solution:
         # n = len(nums)
         # max_prod = [0] * n
         # min_prod = [0] * n
+        # ans = max_prod[0] = min_prod[0] = nums[0]
 
-        # max_prod[0] = nums[0]
-        # min_prod[0] = nums[0]
-        # ans = nums[0]
-
-        # for idx in range(1, n):
-        #     max_prod[idx] = max(
-        #         nums[idx], nums[idx] * max_prod[idx - 1], nums[idx] * min_prod[idx - 1]
+        # for i in range(1, n):
+        #     max_prod[i] = max(
+        #         nums[i], max_prod[i - 1] * nums[i], min_prod[i - 1] * nums[i]
         #     )
-        #     min_prod[idx] = min(
-        #         nums[idx], nums[idx] * max_prod[idx - 1], nums[idx] * min_prod[idx - 1]
+        #     min_prod[i] = min(
+        #         nums[i], max_prod[i - 1] * nums[i], min_prod[i - 1] * nums[i]
         #     )
 
-        #     ans = max(ans, max_prod[idx])
+        #     ans = max(ans, max_prod[i])
 
         # return ans
 
         # method2
-        curr_max = curr_min = ans = nums[0]
+        n = len(nums)
+        ans = curr_max = curr_min = nums[0]
 
-        for idx in range(1, len(nums)):
-            num = nums[idx]
+        for i in range(1, n):
+            prev_max, prev_min = curr_max, curr_min
 
-            if num < 0:
-                curr_max, curr_min = curr_min, curr_max
-
-            curr_max = max(num, num * curr_max)
-            curr_min = min(num, num * curr_min)
+            curr_max = max(nums[i], prev_max * nums[i], prev_min * nums[i])
+            curr_min = min(nums[i], prev_max * nums[i], prev_min * nums[i])
 
             ans = max(ans, curr_max)
 

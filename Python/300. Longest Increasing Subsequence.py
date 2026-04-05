@@ -1,4 +1,4 @@
-from typing import List
+from bisect import bisect_left
 
 
 class Solution:
@@ -8,23 +8,20 @@ class Solution:
 
         for i in range(len(nums)):
             for j in range(i):
-                if nums[j] >= nums[i]:
-                    continue
-
-                dp[i] = max(dp[i], dp[j] + 1)
+                if nums[j] < nums[i]:
+                    dp[i] = max(dp[i], dp[j] + 1)
 
         return max(dp)
 
         # # method2
-        # import bisect
+        # tails = []
 
-        # sub = []
+        # for num in nums:
+        #     idx = bisect_left(tails, num)
 
-        # for n in nums:
-        #     if not sub or sub[-1] < n:
-        #         sub.append(n)
+        #     if idx == len(tails):
+        #         tails.append(num)
         #     else:
-        #         idx = bisect.bisect_left(sub, n)
-        #         sub[idx] = n
+        #         tails[idx] = num
 
-        # return len(sub)
+        # return len(tails)
