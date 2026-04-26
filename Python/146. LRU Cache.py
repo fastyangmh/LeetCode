@@ -4,7 +4,7 @@ class Node:
         self.value = value
 
         self.prev = None
-        self.tail = None
+        self.next = None
 
 
 class LRUCache:
