@@ -7,7 +7,7 @@ class Solution:
         # sold = [0] * n
         # rest = [0] * n
 
-        # hold[0] = rest[0] - prices[0]
+        # hold[0] = -prices[0]
 
         # for i in range(1, n):
         #     hold[i] = max(hold[i - 1], rest[i - 1] - prices[i])
@@ -20,16 +20,13 @@ class Solution:
         n = len(prices)
 
         hold = -prices[0]
-        sold = 0
-        rest = 0
+        sold = rest = 0
 
         for i in range(1, n):
-            prev_hold = hold
-            prev_sold = sold
-            prev_rest = rest
+            prev_hold, prev_sold, prev_rest = hold, sold, rest
 
             hold = max(prev_hold, prev_rest - prices[i])
             sold = prev_hold + prices[i]
             rest = max(prev_rest, prev_sold)
 
-        return max(sold, rest)
+        return max(rest, sold)
