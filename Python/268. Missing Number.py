@@ -1,23 +1,24 @@
-from typing import List
-
-
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         # # method1
-        # return (len(nums) * (len(nums) + 1)) // 2 - sum(nums)
+        # n = len(nums)
+        # expected = n * (n + 1) // 2
+        # actual = sum(nums)
 
-        # # method2
-        # res = len(nums)
+        # return expected - actual
 
-        # for idx, n in enumerate(nums):
-        #     res ^= idx ^ n
+        # method2
+        ans = len(nums)
 
-        # return res
+        for i, n in enumerate(nums):
+            ans ^= i ^ n
 
-        # method3
-        res = len(nums)
+        return ans
 
-        for idx, n in enumerate(nums):
-            res += idx - n
+        # # method3
+        # ans = len(nums)
 
-        return res
+        # for i, n in enumerate(nums):
+        #     ans += i - n
+
+        # return ans

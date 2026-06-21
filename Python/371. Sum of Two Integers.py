@@ -1,11 +1,11 @@
 class Solution:
     def getSum(self, a: int, b: int) -> int:
         mask = 0xFFFFFFFF
-        max_int = 2**31 - 1
+        max_int = 0x7FFFFFFF  # 2**31-1
 
         while b != 0:
-            carry = (a & b) & mask
+            carry = (a & b) << 1
             a = (a ^ b) & mask
-            b = (carry << 1) & mask
+            b = carry & mask
 
         return a if a <= max_int else ~(a ^ mask)

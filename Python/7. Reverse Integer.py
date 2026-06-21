@@ -5,7 +5,7 @@ class Solution:
         ans = 0
 
         while x != 0:
-            ans = (ans * 10) + x % 10
+            ans = ans * 10 + x % 10
             x //= 10
 
         ans *= signed
