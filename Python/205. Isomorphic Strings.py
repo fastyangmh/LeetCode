@@ -1,28 +1,15 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        # char_map = {}
+        s_to_t = {}
+        t_to_s = {}
 
-        # for sc, tc in zip(s, t):
-        #     if sc not in char_map:
-        #         if tc in char_map.values():
-        #             return False
-        #         char_map[sc] = tc
-        #     elif char_map[sc] != tc:
-        #         return False
-
-        # return True
-
-        char_index_s = {}
-        char_index_t = {}
-
-        for idx, (sc, tc) in enumerate(zip(s, t)):
-            if sc not in char_index_s:
-                char_index_s[sc] = idx
-
-            if tc not in char_index_t:
-                char_index_t[tc] = idx
-
-            if char_index_s[sc] != char_index_t[tc]:
+        for c1, c2 in zip(s, t):
+            if s_to_t.get(c1, c2) != c2:
                 return False
+            if t_to_s.get(c2, c1) != c1:
+                return False
+
+            s_to_t[c1] = c2
+            t_to_s[c2] = c1
 
         return True

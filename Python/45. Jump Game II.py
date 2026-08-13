@@ -1,16 +1,18 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        max_reach = end = steps = 0
         n = len(nums)
+        end = 0
+        jumps = 0
+        max_reach = 0
 
-        for idx in range(n - 1):
-            max_reach = max(max_reach, idx + nums[idx])
+        for i in range(n - 1):
+            max_reach = max(max_reach, i + nums[i])
 
-            if idx == end:
-                steps += 1
+            if i == end:
+                jumps += 1
                 end = max_reach
 
                 if end >= n - 1:
-                    break
+                    return jumps
 
-        return steps
+        return jumps

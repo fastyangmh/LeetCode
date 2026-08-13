@@ -14,7 +14,7 @@ class Solution:
     def cloneGraph(self, node: Optional["Node"]) -> Optional["Node"]:
         # # method1
         # if not node:
-        #     return node
+        #     return None
 
         # old_to_new = {}
 
@@ -25,14 +25,12 @@ class Solution:
         #     clone = Node(curr.val)
         #     old_to_new[curr] = clone
 
-        #     for neighbor in curr.neighbors:
-        #         clone.neighbors.append(dfs(neighbor))
+        #     for nei in curr.neighbors:
+        #         clone.neighbors.append(dfs(nei))
 
         #     return clone
 
-        # dfs(node)
-
-        # return old_to_new[node]
+        # return dfs(node)
 
         # method2
         if not node:

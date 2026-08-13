@@ -14,11 +14,9 @@ class Solution:
         # return dp[-1]
 
         # method2
-        prev2 = prev1 = curr = 0
+        prev_prev = prev = 0
 
-        for num in nums:
-            curr = max(prev1, prev2 + num)
-            prev2 = prev1
-            prev1 = curr
+        for money in nums:
+            prev_prev, prev = prev, max(prev, prev_prev + money)
 
-        return curr
+        return prev

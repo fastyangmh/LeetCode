@@ -13,15 +13,11 @@ class Solution:
         # return dp[-1]
 
         # method2
-        prev2 = prev1 = 0
+        n = len(cost)
 
-        for idx in range(2, len(cost) + 1):
-            curr = min(
-                prev2 + cost[idx - 2],
-                prev1 + cost[idx - 1],
-            )
+        prev_prev = prev = 0
 
-            prev2 = prev1
-            prev1 = curr
+        for i in range(2, n + 1):
+            prev_prev, prev = prev, min(prev_prev + cost[i - 2], prev + cost[i - 1])
 
-        return prev1
+        return prev

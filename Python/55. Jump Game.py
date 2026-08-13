@@ -14,6 +14,7 @@ class Solution:
         # return True
 
         # method2
+        n = len(nums)
         max_reach = 0
 
         for idx, jump in enumerate(nums):
@@ -22,7 +23,7 @@ class Solution:
 
             max_reach = max(max_reach, idx + jump)
 
-            if max_reach >= len(nums) - 1:
+            if max_reach >= n - 1:
                 return True
 
         return True

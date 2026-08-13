@@ -35,39 +35,44 @@ class Solution:
 
         # method2
         n = len(nums)
-        res = [0] * n
-        enum = list(enumerate(nums))
+        ans = [0] * n
+        arr = [(v, i) for i, v in enumerate(nums)]
 
-        def merge_sort(arr):
-            if len(arr) <= 1:
-                return arr
+        def merge_sort(left, right):
+            if right - left <= 1:
+                return
 
-            mid = len(arr) // 2
+            mid = (left + right) // 2
 
-            left = merge_sort(arr[:mid])
-            right = merge_sort(arr[mid:])
+            merge_sort(left, mid)
+            merge_sort(mid, right)
 
+            right_smaller = 0
             merged = []
-            i = j = 0
+            i, j = left, mid
 
-            while i < len(left) and j < len(right):
-                if left[i][1] <= right[j][1]:
-                    res[left[i][0]] += j
-                    merged.append(left[i])
+            while i < mid and j < right:
+                if arr[i][0] <= arr[j][0]:
+                    ans[arr[i][1]] += right_smaller
+                    merged.append(arr[i])
                     i += 1
                 else:
-                    merged.append(right[j])
+                    right_smaller += 1
+                    merged.append(arr[j])
                     j += 1
 
-            while i < len(left):
-                res[left[i][0]] += j
-                merged.append(left[i])
+            while i < mid:
+                ans[arr[i][1]] += right_smaller
+                merged.append(arr[i])
                 i += 1
 
-            merged += right[j:]
+            while j < right:
+                merged.append(arr[j])
+                j += 1
 
-            return merged
+            arr[left:right] = merged
 
-        merge_sort(enum)
+            return
 
-        return res
+        merge_sort(0, n)
+        return ans

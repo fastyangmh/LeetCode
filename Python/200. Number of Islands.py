@@ -4,30 +4,30 @@ from typing import List
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         # method1
-        rows = len(grid)
-        cols = len(grid[0])
+        rows, cols = len(grid), len(grid[0])
+        directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
-        def dfs(ri, ci):
-            if not (0 <= ri < rows and 0 <= ci < cols and grid[ri][ci] == "1"):
-                return
+        def dfs(r, c):
+            grid[r][c] = "-1"
 
-            grid[ri][ci] = "0"
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
 
-            dfs(ri - 1, ci)
-            dfs(ri + 1, ci)
-            dfs(ri, ci - 1)
-            dfs(ri, ci + 1)
-
-        count = 0
-
-        for ri in range(rows):
-            for ci in range(cols):
-                if grid[ri][ci] != "1":
+                if not (0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == "1"):
                     continue
-                dfs(ri, ci)
-                count += 1
 
-        return count
+                dfs(nr, nc)
+
+        ans = 0
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] != "1":
+                    continue
+                ans += 1
+                dfs(r, c)
+
+        return ans
 
         # # method2
         # rows = len(grid)

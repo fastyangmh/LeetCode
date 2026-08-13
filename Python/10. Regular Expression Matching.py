@@ -18,15 +18,20 @@ class Solution:
         def dfs(i, j):
             if (i, j) in memo:
                 return memo[(i, j)]
+
             if j == len(p):
                 return i == len(s)
 
-            first = i < len(s) and (p[j] in {s[i], "."})
+            first_match = i < len(s) and (s[i] == p[j] or p[j] == ".")
+
             if j + 1 < len(p) and p[j + 1] == "*":
-                memo[(i, j)] = dfs(i, j + 2) or (first and dfs(i + 1, j))
+                ans = dfs(i, j + 2) or (first_match and dfs(i + 1, j))
             else:
-                memo[(i, j)] = first and dfs(i + 1, j + 1)
-            return memo[(i, j)]
+                ans = first_match and dfs(i + 1, j + 1)
+
+            memo[(i, j)] = ans
+
+            return ans
 
         return dfs(0, 0)
 

@@ -9,7 +9,7 @@ class Solution:
             return head
 
         odd = head
-        dummy_even = even = head.next
+        even_head = even = head.next
 
         while even and even.next:
             odd.next = even.next
@@ -18,6 +18,6 @@ class Solution:
             odd = odd.next
             even = even.next
 
-        odd.next = dummy_even
+        odd.next = even_head
 
         return head

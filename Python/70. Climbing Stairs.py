@@ -10,9 +10,12 @@ class Solution:
         # return dp[-1]
 
         # method2
-        prev = curr = 1
+        if n <= 2:
+            return n
 
-        for _ in range(2, n + 1):
-            prev, curr = curr, prev + curr
+        prev2 = prev1 = 1
 
-        return curr
+        for i in range(2, n + 1):
+            prev2, prev1 = prev1, prev2 + prev1
+
+        return prev1

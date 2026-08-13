@@ -3,36 +3,41 @@ class Solution:
         # # method1
         # total = sum(nums)
 
-        # if total % 2 != 0:
+        # if total & 1:
         #     return False
 
         # target = total // 2
         # n = len(nums)
-        # dp = [[True] + [False] * target for _ in range(n + 1)]
 
-        # for i in range(1, len(nums) + 1):
-        #     num = nums[i - 1]
+        # dp = [[False] * (target + 1) for _ in range(n + 1)]
 
-        #     for j in range(1, target + 1):
-        #         dp[i][j] = dp[i - 1][j]
+        # for i in range(n + 1):
+        #     dp[i][0] = True
 
-        #         if j >= num:
-        #             dp[i][j] = dp[i][j] or dp[i - 1][j - num]
+        # for i in range(1, n + 1):
+        #     for t in range(1, target + 1):
+        #         num = nums[i - 1]
+
+        #         dp[i][t] = dp[i - 1][t]
+
+        #         if t >= num:
+        #             dp[i][t] |= dp[i - 1][t - num]
 
         # return dp[-1][-1]
 
         # method2
         total = sum(nums)
 
-        if total % 2 != 0:
+        if total & 1:
             return False
 
         target = total // 2
+
         dp = [False] * (target + 1)
         dp[0] = True
 
         for num in nums:
-            for j in range(target, num - 1, -1):
-                dp[j] = dp[j] or dp[j - num]
+            for t in range(target, num - 1, -1):
+                dp[t] |= dp[t - num]
 
         return dp[-1]

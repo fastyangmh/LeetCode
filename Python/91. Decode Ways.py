@@ -16,7 +16,7 @@ class Solution:
         #     if single != "0":
         #         dp[idx] += dp[idx - 1]
 
-        #     if 10 <= int(double) <= 26:
+        #     if "10" <= double <= "26":
         #         dp[idx] += dp[idx - 2]
 
         # return dp[-1]
@@ -33,7 +33,7 @@ class Solution:
             if s[i - 1] != "0":
                 curr += prev1
 
-            if 10 <= int(s[i - 2 : i]) <= 26:
+            if "10" <= s[i - 2 : i] <= "26":
                 curr += prev2
 
             prev2, prev1 = prev1, curr

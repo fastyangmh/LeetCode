@@ -10,32 +10,10 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: "Optional[Node]") -> "Optional[Node]":
-        # # method1
-        # node_mapping = {}
-        # dummy = curr = Node(0)
-        # node = head
-
-        # while node:
-        #     curr.next = Node(node.val)
-        #     node_mapping[node] = curr.next
-        #     curr, node = curr.next, node.next
-
-        # node = head
-        # curr = dummy.next
-
-        # while node:
-        #     if node.random in node_mapping:
-        #         curr.random = node_mapping[node.random]
-        #     curr, node = curr.next, node.next
-
-        # return dummy.next
-
-        # method2
         curr = head
 
         while curr:
-            new = Node(curr.val)
-            new.next = curr.next
+            new = Node(curr.val, next=curr.next)
             curr.next = new
             curr = new.next
 
@@ -44,6 +22,7 @@ class Solution:
         while curr:
             if curr.random:
                 curr.next.random = curr.random.next
+
             curr = curr.next.next
 
         curr = head
@@ -53,7 +32,7 @@ class Solution:
             new.next = curr.next
             curr.next = curr.next.next
 
-            curr = curr.next
             new = new.next
+            curr = curr.next
 
         return dummy.next

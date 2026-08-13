@@ -1,11 +1,12 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        ans = pfx = 0
-        pfx_count = {0: 1}
+        count = {0: 1}
+        prefix = 0
+        ans = 0
 
-        for n in nums:
-            pfx += n
-            ans += pfx_count.get(pfx - k, 0)
-            pfx_count[pfx] = pfx_count.get(pfx, 0) + 1
+        for x in nums:
+            prefix += x
+            ans += count.get(prefix - k, 0)
+            count[prefix] = count.get(prefix, 0) + 1
 
         return ans

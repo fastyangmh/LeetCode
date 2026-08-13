@@ -1,56 +1,22 @@
-from typing import List
-
-
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        # # method1
-        # res = []
+        ans = []
 
-        # def is_valid(comb):
-        #     stack = []
-
-        #     for p in "".join(comb):
-        #         if p == "(":
-        #             stack.append(p)
-        #         else:
-        #             if not stack:
-        #                 return False
-        #             if stack.pop() + p != "()":
-        #                 return False
-
-        #     return not stack
-
-        # def helper(comb):
-        #     if len(comb) == n * 2:
-        #         if not is_valid(comb):
-        #             return
-
-        #         res.append("".join(comb))
-        #         return
-
-        #     for p in ("(", ")"):
-        #         comb.append(p)
-        #         helper(comb)
-        #         comb.pop()
-
-        # helper([])
-
-        # return res
-
-        # method2
-        res = []
-
-        def backtrack(s, open_cnt, close_cnt):
-            if len(s) == 2 * n:
-                res.append(s)
+        def backtrack(open_count, close_count, path):
+            if open_count + close_count == 2 * n:
+                ans.append("".join(path))
                 return
 
-            if open_cnt < n:
-                backtrack(s + "(", open_cnt + 1, close_cnt)
+            if open_count < n:
+                path.append("(")
+                backtrack(open_count + 1, close_count, path)
+                path.pop()
 
-            if close_cnt < open_cnt:
-                backtrack(s + ")", open_cnt, close_cnt + 1)
+            if close_count < open_count:
+                path.append(")")
+                backtrack(open_count, close_count + 1, path)
+                path.pop()
 
-        backtrack("", 0, 0)
+        backtrack(0, 0, [])
 
-        return res
+        return ans

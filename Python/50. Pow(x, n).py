@@ -21,13 +21,13 @@ class Solution:
             x = 1 / x
             n = abs(n)
 
-        res = 1
+        ans = 1
 
         while n > 0:
             if n & 1:
-                res *= x
+                ans *= x
 
             n //= 2
             x *= x
 
-        return res
+        return ans

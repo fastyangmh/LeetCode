@@ -4,16 +4,23 @@ from typing import List
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         # method1
-        pref = strs[0]
+        prefix = strs[0]
 
-        for s in strs[1:]:
-            while s[: len(pref)] != pref:
-                pref = pref[:-1]
+        for i in range(1, len(strs)):
+            s = strs[i]
 
-                if not pref:
-                    return ""
+            j = 0
+            k = min(len(s), len(prefix))
 
-        return pref
+            while j < k and s[j] == prefix[j]:
+                j += 1
+
+            prefix = prefix[:j]
+
+            if not prefix:
+                return ""
+
+        return prefix
 
         # method2
         # class TrieNode:

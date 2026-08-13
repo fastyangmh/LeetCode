@@ -1,26 +1,16 @@
-from typing import List
-
-
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        # carry = 1
-        # for idx in range(len(digits) - 1, -1, -1):
-        #     digits[idx] += carry
-        #     carry = digits[idx] // 10
-        #     digits[idx] %= 10
+        n = len(digits)
+        carry = 1
 
-        #     if carry == 0:
-        #         break
-        # if carry != 0:
-        #     digits = [carry] + digits
-        # return digits
+        for i in range(n - 1, -1, -1):
+            d = digits[i]
 
-        for idx in range(len(digits) - 1, -1, -1):
-            if digits[idx] + 1 < 10:
-                digits[idx] += 1
-                return digits
+            total = carry + d
 
-            digits[idx] = 0
+            digits[i] = total % 10
+            carry = total // 10
 
-            if idx == 0:
-                return [1] + digits
+        if carry != 0:
+            return [carry] + digits
+        return digits

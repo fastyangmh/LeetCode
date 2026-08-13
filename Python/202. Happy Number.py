@@ -1,41 +1,19 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        # # method1
-        # def get_next_n(n):
-        #     ret = 0
+        def squares_digits(n):
+            s = 0
 
-        #     while n:
-        #         ret += (n % 10) ** 2
-        #         n //= 10
-
-        #     return ret
-
-        # seen = set()
-
-        # while n not in seen:
-        #     seen.add(n)
-        #     n = get_next_n(n)
-
-        #     if n == 1:
-        #         return True
-
-        # return False
-
-        # method2
-        def get_next_n(n):
-            ret = 0
-
-            while n:
-                ret += (n % 10) ** 2
+            while n > 0:
+                s += (n % 10) ** 2
                 n //= 10
 
-            return ret
+            return s
 
         slow = n
-        fast = get_next_n(slow)
+        fast = squares_digits(n)
 
         while fast != 1 and slow != fast:
-            slow = get_next_n(slow)
-            fast = get_next_n(get_next_n(fast))
+            slow = squares_digits(slow)
+            fast = squares_digits(squares_digits(fast))
 
         return fast == 1

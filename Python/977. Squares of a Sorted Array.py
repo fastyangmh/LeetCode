@@ -1,20 +1,19 @@
-from typing import List
-
-
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        # time O(n*nlogn) space O(1)
-        for idx in range(len(nums)):
-            nums[idx] = nums[idx]**2
-        nums = sorted(nums)
-        return nums
+        n = len(nums)
+        result = [0] * n
+        write = n - 1
+        left, right = 0, n - 1
 
+        while left <= right:
+            l, r = nums[left], nums[right]
 
-if __name__ == '__main__':
-    # ex1    ans [0,1,9,16,100]
-    nums = [-4, -1, 0, 3, 10]
-    print(Solution().sortedSquares(nums=nums))
+            if abs(l) >= abs(r):
+                result[write] = l * l
+                left += 1
+            else:
+                result[write] = r * r
+                right -= 1
+            write -= 1
 
-    # ex2    ans [4,9,9,49,121]
-    nums = [-7, -3, 2, 3, 11]
-    print(Solution().sortedSquares(nums=nums))
+        return result

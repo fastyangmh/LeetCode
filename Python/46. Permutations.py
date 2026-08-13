@@ -4,12 +4,12 @@ from typing import List
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         # # method1
-        # res = []
+        # ans = []
         # used = [False] * len(nums)
 
         # def backtrack(path):
         #     if len(path) == len(nums):
-        #         return res.append(path[:])
+        #         return ans.append(path[:])
 
         #     for idx in range(len(nums)):
         #         if used[idx]:
@@ -23,14 +23,14 @@ class Solution:
 
         # backtrack([])
 
-        # return res
+        # return ans
 
         # method2
-        res = []
+        ans = []
 
         def backtrack(start):
             if start >= len(nums):
-                res.append(nums[:])
+                ans.append(nums[:])
                 return
 
             for idx in range(start, len(nums)):
@@ -40,4 +40,4 @@ class Solution:
 
         backtrack(0)
 
-        return res
+        return ans

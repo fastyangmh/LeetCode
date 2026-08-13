@@ -14,12 +14,12 @@ class Solution:
             v1 = l1.val if l1 else 0
             v2 = l2.val if l2 else 0
 
-            val = (v1 + v2 + carry) % 10
-            carry = (v1 + v2 + carry) // 10
+            total = v1 + v2 + carry
+            carry = total // 10
 
-            node.next = ListNode(val)
+            node.next = ListNode(total % 10)
+
             node = node.next
-
             l1 = l1.next if l1 else None
             l2 = l2.next if l2 else None
 

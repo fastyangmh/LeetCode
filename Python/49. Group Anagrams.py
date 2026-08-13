@@ -1,26 +1,15 @@
-from typing import List
-
-
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        # # method1
-        # seen = {}
+        groups = {}
 
-        # for word in strs:
-        #     key = "".join(sorted(word))
-        #     seen.setdefault(key, []).append(word)
+        for s in strs:
+            cnt = [0] * 26
 
-        # return list(seen.values())
+            for c in s:
+                i = ord(c) - ord("a")
+                cnt[i] += 1
 
-        # method2
-        seen = {}
+            key = tuple(cnt)
+            groups.setdefault(key, []).append(s)
 
-        for word in strs:
-            chrs = [0] * 26
-
-            for c in word:
-                chrs[ord(c) - ord("a")] += 1
-
-            seen.setdefault(tuple(chrs), []).append(word)
-
-        return list(seen.values())
+        return list(groups.values())

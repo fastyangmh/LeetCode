@@ -5,7 +5,8 @@ class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         # # method1
         # N = 9
-        # n = int(N**0.5)
+        # n = int(9**0.5)
+
         # rows = [set() for _ in range(N)]
         # cols = [set() for _ in range(N)]
         # boxes = [set() for _ in range(N)]

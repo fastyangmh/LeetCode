@@ -30,20 +30,22 @@ class Solution:
 
         # method2
         inorder_map = {val: idx for idx, val in enumerate(inorder)}
-        self.pre_idx = 0
+        pre_idx = 0
 
-        def helper(left, right):
+        def dfs(left, right):
             if left > right:
                 return None
 
-            root = TreeNode(preorder[self.pre_idx])
-            self.pre_idx += 1
+            nonlocal pre_idx
+
+            root = TreeNode(preorder[pre_idx])
+            pre_idx += 1
 
             in_idx = inorder_map[root.val]
 
-            root.left = helper(left, in_idx - 1)
-            root.right = helper(in_idx + 1, right)
+            root.left = dfs(left, in_idx - 1)
+            root.right = dfs(in_idx + 1, right)
 
             return root
 
-        return helper(0, len(preorder) - 1)
+        return dfs(0, len(preorder) - 1)

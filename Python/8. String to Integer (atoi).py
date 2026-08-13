@@ -1,40 +1,33 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        if not s:
-            return 0
-        idx = 0
-        l = len(s)
-        signed = 1
-        ans = 0
+        n = len(s)
         INT_MIN = -(2**31)
         INT_MAX = 2**31 - 1
 
-        # rule1
-        while idx < l and s[idx] == " ":
-            idx += 1
+        i = 0
+        while i < n and s[i] == " ":
+            i += 1
 
-        if idx == l:
+        if i == n:
             return 0
 
-        # rule2
-        if s[idx] == "-":
-            signed = -1
-            idx += 1
-        elif s[idx] == "+":
-            signed = 1
-            idx += 1
+        sign = 1
+        if s[i] in {"+", "-"}:
+            sign = 1 if s[i] == "+" else -1
+            i += 1
 
-        # rule3
-        while idx < l and s[idx].isdigit():
-            ans = (ans * 10) + int(s[idx])
-            idx += 1
+        limit = INT_MAX if sign == 1 else -INT_MIN
 
-        # rule4
-        ans *= signed
+        ans = 0
 
-        if ans < INT_MIN:
-            ans = INT_MIN
-        elif ans > INT_MAX:
-            ans = INT_MAX
+        while i < n and s[i].isdigit():
+            digit = int(s[i])
 
-        return ans
+            if ans > (limit - digit) // 10:
+                return sign * limit
+
+            ans = ans * 10 + digit
+
+            i += 1
+
+        return sign * ans

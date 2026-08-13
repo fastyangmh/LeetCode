@@ -21,10 +21,7 @@ class Solution:
             prev, curr = group_next, group_prev.next
 
             while curr != group_next:
-                tmp = curr.next
-                curr.next = prev
-                prev = curr
-                curr = tmp
+                prev, curr.next, curr = curr, prev, curr.next
 
             tmp = group_prev.next
             group_prev.next = kth

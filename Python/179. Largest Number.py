@@ -3,17 +3,10 @@ from functools import cmp_to_key
 
 class Solution:
     def largestNumber(self, nums: List[int]) -> str:
-        # method1
-        nums_str = list(map(str, nums))
-        nums_str = sorted(nums_str, key=lambda x: x * 10, reverse=True)
+        # # method1
+        # strs = list(map(str, nums))
 
-        if nums_str[0] == "0":
-            return "0"
-
-        return "".join(nums_str)
-
-        # # method2
-        # def compare_func(a, b):
+        # def compare(a, b):
         #     if a + b > b + a:
         #         return -1
         #     elif a + b < b + a:
@@ -21,10 +14,18 @@ class Solution:
         #     else:
         #         return 0
 
-        # nums_str = list(map(str, nums))
-        # nums_str = sorted(nums_str, key=cmp_to_key(compare_func))
+        # strs.sort(key=cmp_to_key(compare))
 
-        # if nums_str[0] == "0":
+        # if strs[0] == "0":
         #     return "0"
 
-        # return "".join(nums_str)
+        # return "".join(strs)
+
+        # method2
+        strs = list(map(str, nums))
+        strs.sort(key=lambda x: x * 10, reverse=True)
+
+        if strs[0] == "0":
+            return "0"
+
+        return "".join(strs)

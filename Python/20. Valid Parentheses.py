@@ -2,13 +2,12 @@ class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
 
-        for c in s:
-            if c in {"(", "{", "["}:
-                stack.append(c)
+        for p in s:
+            if p in {"(", "[", "{"}:
+                stack.append(p)
             else:
-                t = stack.pop() if stack else ""
-
-                if t + c not in {"()", "{}", "[]"}:
+                if not stack or stack[-1] + p not in {"()", "[]", "{}"}:
                     return False
+                stack.pop()
 
-        return not stack
+        return len(stack) == 0
