@@ -14,6 +14,7 @@ class Solution:
 
         while curr:
             new = Node(curr.val, next=curr.next)
+
             curr.next = new
             curr = new.next
 
@@ -25,14 +26,13 @@ class Solution:
 
             curr = curr.next.next
 
+        dummy = cloned = Node(0)
         curr = head
-        dummy = new = Node(0)
 
         while curr:
-            new.next = curr.next
-            curr.next = curr.next.next
+            cloned.next = curr.next
 
-            new = new.next
-            curr = curr.next
+            cloned = cloned.next
+            curr = curr.next.next
 
         return dummy.next

@@ -17,15 +17,19 @@ class Solution:
         # return [v[1] for v in heap]
 
         # method2
-        freq = Counter(nums)
+        counter = Counter(nums)
         bucket = [[] for _ in range(len(nums) + 1)]
+
+        for v, cnt in counter.items():
+            bucket[cnt].append(v)
+
         ans = []
 
-        for num, count in freq.items():
-            bucket[count].append(num)
+        for cnt in range(len(bucket) - 1, -1, -1):
+            for v in bucket[cnt]:
+                ans.append(v)
 
-        for count in range(len(bucket) - 1, -1, -1):
-            for num in bucket[count]:
-                ans.append(num)
                 if len(ans) == k:
                     return ans
+
+        return ans

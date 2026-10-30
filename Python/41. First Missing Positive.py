@@ -11,5 +11,4 @@ class Solution:
         for i, x in enumerate(nums):
             if i + 1 != x:
                 return i + 1
-
         return n + 1

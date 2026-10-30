@@ -7,6 +7,7 @@ class Solution:
         for i in range(n):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
+
             if nums[i] > 0:
                 break
 

@@ -1,5 +1,4 @@
 class MinStack:
-
     def __init__(self):
         self.stack = []
         self.curr_min = None
@@ -15,7 +14,7 @@ class MinStack:
 
     def pop(self) -> None:
         diff = self.stack.pop()
-        self.curr_min = self.curr_min - diff if diff < 0 else self.curr_min
+        self.curr_min -= diff if diff < 0 else 0
 
     def top(self) -> int:
         diff = self.stack[-1]

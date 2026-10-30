@@ -8,5 +8,4 @@ class Solution:
             prefix += x
             ans += count.get(prefix - k, 0)
             count[prefix] = count.get(prefix, 0) + 1
-
         return ans

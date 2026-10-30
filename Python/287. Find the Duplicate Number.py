@@ -1,19 +1,17 @@
 class Solution:
-    def findDuplicate(self, nums: List[int]) -> int:
-        # method1
-        # low, high = 1, len(nums) - 1
+    def findDuplicate(self, nums: list[int]) -> int:
+        # # method1
+        # l, r = 1, len(nums) - 1
 
-        # while low < high:
-        #     mid = (low + high) // 2
+        # while l < r:
+        #     m = (l + r) // 2
 
-        #     count = sum(num <= mid for num in nums)
-
-        #     if count > mid:
-        #         high = mid
+        #     if sum(n <= m for n in nums) > m:
+        #         r = m
         #     else:
-        #         low = mid + 1
+        #         l = m + 1
 
-        # return low
+        # return l
 
         # method2
         slow = fast = 0

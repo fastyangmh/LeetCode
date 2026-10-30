@@ -1,37 +1,38 @@
-from typing import List
+from collections import deque
 
 
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        m, n = len(matrix), len(matrix[0])
-        memo = [[0] * n for _ in range(m)]
+        rows, cols = len(matrix), len(matrix[0])
         directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
+        dp = [[0] * cols for _ in range(rows)]
+
         def dfs(r, c):
-            if memo[r][c] != 0:
-                return memo[r][c]
+            if dp[r][c] != 0:
+                return dp[r][c]
 
             max_len = 1
 
             for dr, dc in directions:
-                if (
-                    not 0 <= r + dr < m
-                    or not 0 <= c + dc < n
-                    or matrix[r + dr][c + dc] <= matrix[r][c]
+                nr, nc = r + dr, c + dc
+
+                if not (
+                    0 <= nr < rows and 0 <= nc < cols and matrix[nr][nc] > matrix[r][c]
                 ):
                     continue
 
-                length = 1 + dfs(r + dr, c + dc)
+                length = 1 + dfs(nr, nc)
                 max_len = max(max_len, length)
 
-            memo[r][c] = max_len
+            dp[r][c] = max(dp[r][c], max_len)
 
-            return max_len
+            return dp[r][c]
 
         ans = 0
 
-        for r in range(m):
-            for c in range(n):
+        for r in range(rows):
+            for c in range(cols):
                 ans = max(ans, dfs(r, c))
 
         return ans

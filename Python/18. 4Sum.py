@@ -26,6 +26,7 @@ class Solution:
 
                         while c < d and nums[c] == nums[c - 1]:
                             c += 1
+
                         while c < d and nums[d] == nums[d + 1]:
                             d -= 1
 

@@ -1,10 +1,10 @@
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, prices: list[int]) -> int:
         buy = float("inf")
-        profit = 0
+        ans = 0
 
-        for p in prices:
-            profit = max(profit, p - buy)
-            buy = min(buy, p)
+        for price in prices:
+            ans = max(ans, price - buy)
+            buy = min(buy, price)
 
-        return profit
+        return ans

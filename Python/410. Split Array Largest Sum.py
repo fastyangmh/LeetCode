@@ -1,5 +1,5 @@
 class Solution:
-    def splitArray(self, nums: List[int], k: int) -> int:
+    def splitArray(self, nums: list[int], k: int) -> int:
         def check(limit):
             groups = 1
             curr = 0
@@ -13,14 +13,14 @@ class Solution:
 
             return groups <= k
 
-        left, right = max(nums), sum(nums)
+        l, r = max(nums), sum(nums)
 
-        while left < right:
-            mid = (left + right) // 2
+        while l < r:
+            m = (l + r) // 2
 
-            if check(mid):
-                right = mid
+            if check(m):
+                r = m
             else:
-                left = mid + 1
+                l = m + 1
 
-        return left
+        return l

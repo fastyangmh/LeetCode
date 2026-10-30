@@ -4,48 +4,59 @@ from collections import deque, defaultdict
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         # # method1
-        # if endWord not in wordList:
+        # words = set(wordList)
+
+        # if endWord not in words:
         #     return 0
 
         # L = len(beginWord)
-        # all_combos = defaultdict(list)
+        # combs = defaultdict(list)
 
-        # for word in wordList:
+        # for w in words:
         #     for i in range(L):
-        #         pattern = word[:i] + "*" + word[i + 1 :]
-        #         all_combos[pattern].append(word)
+        #         pattern = w[:i] + "*" + w[i + 1 :]
+        #         combs[pattern].append(w)
 
-        # queue = deque([(beginWord, 1)])
-        # visited = set([beginWord])
+        # queue = deque([beginWord])
+        # visited = {beginWord}
+        # steps = 0
 
         # while queue:
-        #     word, level = queue.popleft()
+        #     steps += 1
 
-        #     for i in range(L):
-        #         pattern = word[:i] + "*" + word[i + 1 :]
+        #     for _ in range(len(queue)):
+        #         w = queue.popleft()
 
-        #         for neighbor in all_combos[pattern]:
-        #             if neighbor == endWord:
-        #                 return level + 1
+        #         if w == endWord:
+        #             return steps
 
-        #             if neighbor not in visited:
-        #                 visited.add(neighbor)
-        #                 queue.append((neighbor, level + 1))
+        #         for i in range(L):
+        #             pattern = w[:i] + "*" + w[i + 1 :]
 
-        #         all_combos[pattern].clear()
+        #             for next_word in combs[pattern]:
+        #                 if next_word in visited:
+        #                     continue
+
+        #                 visited.add(next_word)
+        #                 queue.append(next_word)
 
         # return 0
 
         # method2
-        if endWord not in wordList:
+        words = set(wordList)
+
+        if endWord not in words:
             return 0
 
         L = len(beginWord)
+
         begin_set = {beginWord}
         end_set = {endWord}
-        word_set = set(wordList)
 
-        level = 1
+        words.discard(beginWord)
+        words.discard(endWord)
+
+        steps = 1
 
         while begin_set and end_set:
             if len(begin_set) > len(end_set):
@@ -55,17 +66,22 @@ class Solution:
 
             for word in begin_set:
                 for i in range(L):
-                    for c in range(ord("a"), ord("z") + 1):
-                        new_word = word[:i] + chr(c) + word[i + 1 :]
+                    prefix = word[:i]
+                    suffix = word[i + 1 :]
 
-                        if new_word in end_set:
-                            return level + 1
+                    for j in range(26):
+                        ch = chr(ord("a") + j)
 
-                        if new_word in word_set:
-                            word_set.remove(new_word)
-                            next_level.add(new_word)
+                        next_word = prefix + ch + suffix
 
-            level += 1
+                        if next_word in end_set:
+                            return steps + 1
+
+                        if next_word in words:
+                            words.remove(next_word)
+                            next_level.add(next_word)
+
+            steps += 1
             begin_set = next_level
 
         return 0

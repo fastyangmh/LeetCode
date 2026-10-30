@@ -5,7 +5,7 @@ class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         # # method1
         # N = 9
-        # n = int(9**0.5)
+        # n = 3
 
         # rows = [set() for _ in range(N)]
         # cols = [set() for _ in range(N)]
@@ -13,19 +13,19 @@ class Solution:
 
         # for r in range(N):
         #     for c in range(N):
-        #         v = board[r][c]
+        #         cell = board[r][c]
 
-        #         if v == ".":
+        #         if cell == ".":
         #             continue
 
-        #         b = (r // n) * n + (c // n)
+        #         box_id = (r // n) * n + (c // n)
 
-        #         if v in rows[r] or v in cols[c] or v in boxes[b]:
+        #         if cell in rows[r] or cell in cols[c] or cell in boxes[box_id]:
         #             return False
 
-        #         rows[r].add(v)
-        #         cols[c].add(v)
-        #         boxes[b].add(v)
+        #         rows[r].add(cell)
+        #         cols[c].add(cell)
+        #         boxes[box_id].add(cell)
 
         # return True
 
@@ -57,44 +57,3 @@ class Solution:
                 boxes[b] |= bit
 
         return True
-
-        # # method3
-        # def check_repeat(s):
-        #     map_ = {}
-        #     for c in s:
-        #         if not c.isdigit():
-        #             continue
-
-        #         map_.setdefault(c, 0)
-
-        #         if map_[c] > 0:
-        #             return True
-        #         map_[c] += 1
-        #     return False
-
-        # for row in board:
-        #     is_repeat = check_repeat(row)
-
-        #     if is_repeat:
-        #         return False
-
-        # for col in zip(*board):
-        #     is_repeat = check_repeat(list(col))
-
-        #     if is_repeat:
-        #         return False
-
-        # for col_idx in range(0, len(board), 3):
-        #     for row_idx in range(0, len(board), 3):
-        #         boxes = []
-        #         row = board[row_idx : row_idx + 3]
-
-        #         for i in range(3):
-        #             boxes += row[i][col_idx : col_idx + 3]
-
-        #         is_repeat = check_repeat(boxes)
-
-        #         if is_repeat:
-        #             return False
-
-        # return True

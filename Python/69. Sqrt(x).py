@@ -1,17 +1,29 @@
 class Solution:
     def mySqrt(self, x: int) -> int:
-        if x < 2:
-            return x
+        # # method1, find the last False; False, False, True, True, True
+        # l, r = 0, x + 1
 
-        left, right = 1, x
+        # while l < r:
+        #     m = (l + r) // 2
+        #     s = m * m
 
-        while left < right:
-            mid = (left + right + 1) // 2
-            square = mid * mid
+        #     if s > x:
+        #         r = m
+        #     else:
+        #         l = m + 1
 
-            if square <= x:
-                left = mid
+        # return l - 1
+
+        # method2, find the last True; True, True, True, False, False
+        l, r = 0, x
+
+        while l < r:
+            m = (l + r + 1) // 2
+            s = m * m
+
+            if s <= x:
+                l = m
             else:
-                right = mid - 1
+                r = m - 1
 
-        return left
+        return l

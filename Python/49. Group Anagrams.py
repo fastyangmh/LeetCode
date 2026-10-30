@@ -12,4 +12,4 @@ class Solution:
             key = tuple(cnt)
             groups.setdefault(key, []).append(s)
 
-        return list(groups.values())
+        return [v for v in groups.values()]

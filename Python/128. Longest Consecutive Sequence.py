@@ -3,18 +3,18 @@ class Solution:
         if not nums:
             return 0
 
-        unique = set(nums)
+        unique_nums = set(nums)
         ans = 0
 
-        for x in unique:
-            if x - 1 in unique:
+        for i in unique_nums:
+            if i - 1 in unique_nums:
                 continue
 
-            y = x
+            j = i
 
-            while y in unique:
-                y += 1
+            while j in unique_nums:
+                j += 1
 
-            ans = max(ans, y - x)
+            ans = max(ans, j - i)
 
         return ans

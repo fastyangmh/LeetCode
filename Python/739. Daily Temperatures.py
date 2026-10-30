@@ -4,10 +4,8 @@ class Solution:
         ans = [0] * n
         stack = []
 
-        for curr in range(n):
-            curr_temp = temperatures[curr]
-
-            while stack and curr_temp > temperatures[stack[-1]]:
+        for curr, temp in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < temp:
                 prev = stack.pop()
                 ans[prev] = curr - prev
 

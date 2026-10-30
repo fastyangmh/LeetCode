@@ -1,7 +1,6 @@
 class NumMatrix:
     def __init__(self, matrix: List[List[int]]):
         rows, cols = len(matrix), len(matrix[0])
-
         prefix = [[0] * (cols + 1) for _ in range(rows + 1)]
 
         for r in range(1, rows + 1):

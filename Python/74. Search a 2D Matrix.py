@@ -5,9 +5,8 @@ class Solution:
 
         while left <= right:
             mid = (left + right) // 2
-            r = mid // cols
-            c = mid % cols
-            num = matrix[r][c]
+            row, col = mid // cols, mid % cols
+            num = matrix[row][col]
 
             if num == target:
                 return True

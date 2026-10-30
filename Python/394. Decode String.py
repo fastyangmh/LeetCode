@@ -1,8 +1,8 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        curr_count = 0
-        curr_string = ""
         stack = []
+        curr_string = ""
+        curr_count = 0
 
         for c in s:
             if c.isdigit():
@@ -11,10 +11,12 @@ class Solution:
                 curr_string += c
             elif c == "[":
                 stack.append((curr_count, curr_string))
+
                 curr_count = 0
                 curr_string = ""
             else:
                 prev_count, prev_string = stack.pop()
-                curr_string = prev_string + curr_string * prev_count
+
+                curr_string = prev_string + prev_count * curr_string
 
         return curr_string

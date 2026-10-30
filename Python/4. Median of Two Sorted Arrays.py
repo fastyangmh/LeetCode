@@ -1,14 +1,14 @@
 class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:
         m, n = len(nums1), len(nums2)
 
         if m > n:
             return self.findMedianSortedArrays(nums2, nums1)
 
-        left, right = 0, m
+        l, r = 0, m
 
-        while left <= right:
-            part1 = (left + right) // 2
+        while l <= r:
+            part1 = (l + r) // 2
             part2 = (m + n + 1) // 2 - part1
 
             max_left1 = nums1[part1 - 1] if part1 > 0 else float("-inf")
@@ -18,11 +18,10 @@ class Solution:
             min_right2 = nums2[part2] if part2 < n else float("inf")
 
             if max_left1 <= min_right2 and max_left2 <= min_right1:
-                if (m + n) % 2 == 1:
+                if (m + n) & 1:
                     return max(max_left1, max_left2)
-                else:
-                    return (max(max_left1, max_left2) + min(min_right1, min_right2)) / 2
+                return (max(max_left1, max_left2) + min(min_right1, min_right2)) / 2
             elif max_left1 > min_right2:
-                right = part1 - 1
+                r = part1 - 1
             else:
-                left = part1 + 1
+                l = part1 + 1

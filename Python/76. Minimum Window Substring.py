@@ -8,7 +8,7 @@ class Solution:
 
         need = Counter(t)
         window = {}
-        left = right = start = valid = 0
+        start = left = right = valid = 0
         min_len = float("inf")
 
         while right < len(s):
@@ -23,8 +23,8 @@ class Solution:
 
             while valid == len(need):
                 if right - left < min_len:
-                    start = left
                     min_len = right - left
+                    start = left
 
                 d = s[left]
                 left += 1
@@ -32,7 +32,6 @@ class Solution:
                 if d in need:
                     if window[d] == need[d]:
                         valid -= 1
-
                     window[d] -= 1
 
         return "" if min_len == float("inf") else s[start : start + min_len]
