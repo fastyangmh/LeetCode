@@ -35,33 +35,34 @@ class Solution:
 
         # method2
         rows, cols = len(board), len(board[0])
+        directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
-        def dfs(ri, ci, word_idx):
-            if board[ri][ci] != word[word_idx]:
+        def backtrack(r, c, idx):
+            if board[r][c] != word[idx]:
                 return False
 
-            if word_idx == len(word) - 1:
+            if idx == len(word) - 1:
                 return True
 
-            tmp = board[ri][ci]
-            board[ri][ci] = "_"
+            tmp = board[r][c]
+            board[r][c] = "_"
 
-            for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                nr, nc = ri + dr, ci + dc
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
 
-                if not (0 <= nr < rows and 0 <= nc < cols):
+                if not (0 <= nr < rows and 0 <= nc < cols and board[nr][nc] != "_"):
                     continue
 
-                if dfs(nr, nc, word_idx + 1):
+                if backtrack(nr, nc, idx + 1):
                     return True
 
-            board[ri][ci] = tmp
+            board[r][c] = tmp
 
             return False
 
-        for ri in range(rows):
-            for ci in range(cols):
-                if dfs(ri, ci, 0):
+        for r in range(rows):
+            for c in range(cols):
+                if backtrack(r, c, 0):
                     return True
 
         return False

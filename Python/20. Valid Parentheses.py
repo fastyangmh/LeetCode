@@ -3,11 +3,12 @@ class Solution:
         stack = []
 
         for c in s:
-            if c in {"(", "{", "["}:
+            if c in {"(", "[", "{"}:
                 stack.append(c)
             else:
-                if not stack or stack[-1] + c not in {"()", "[]", "{}"}:
+                top = stack.pop() if stack else ""
+
+                if top + c not in {"()", "[]", "{}"}:
                     return False
-                stack.pop()
 
         return not stack

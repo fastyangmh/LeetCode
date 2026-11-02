@@ -11,7 +11,7 @@ class Solution:
         #     if not node:
         #         return True
 
-        #     if not (low < node.val < high):
+        #     if low >= node.val or high <= node.val:
         #         return False
 
         #     return dfs(node.left, low, node.val) and dfs(node.right, node.val, high)
@@ -23,7 +23,7 @@ class Solution:
 
         def inorder(node):
             nonlocal prev
-            
+
             if not node:
                 return True
 

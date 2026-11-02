@@ -38,6 +38,8 @@ class Solution:
 
             curr = stack.pop()
             k -= 1
+
             if k == 0:
                 return curr.val
+
             curr = curr.right

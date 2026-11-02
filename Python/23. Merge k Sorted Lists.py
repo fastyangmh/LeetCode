@@ -60,6 +60,7 @@ class Solution:
                     curr.next, l1 = l1, l1.next
                 else:
                     curr.next, l2 = l2, l2.next
+
                 curr = curr.next
 
             curr.next = l1 or l2
@@ -69,9 +70,9 @@ class Solution:
         while len(lists) > 1:
             merged = []
 
-            for list_idx in range(0, len(lists), 2):
-                l1 = lists[list_idx]
-                l2 = lists[list_idx + 1] if list_idx + 1 < len(lists) else None
+            for i in range(0, len(lists), 2):
+                l1 = lists[i]
+                l2 = lists[i + 1] if i + 1 < len(lists) else None
                 merged.append(merge_lists(l1, l2))
 
             lists = merged

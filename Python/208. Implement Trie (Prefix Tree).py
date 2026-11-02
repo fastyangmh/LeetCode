@@ -6,32 +6,30 @@ class Trie:
     def insert(self, word: str) -> None:
         node = self
 
-        for c in word:
-            if c not in node.children:
-                node.children[c] = Trie()
-            node = node.children[c]
+        for char in word:
+            if char not in node.children:
+                node.children[char] = Trie()
+            node = node.children[char]
 
         node.is_end = True
 
     def search(self, word: str) -> bool:
         node = self
 
-        for c in word:
-            if c not in node.children:
+        for char in word:
+            if char not in node.children:
                 return False
-
-            node = node.children[c]
+            node = node.children[char]
 
         return node.is_end
 
     def startsWith(self, prefix: str) -> bool:
         node = self
 
-        for c in prefix:
-            if c not in node.children:
+        for char in prefix:
+            if char not in node.children:
                 return False
-
-            node = node.children[c]
+            node = node.children[char]
 
         return True
 

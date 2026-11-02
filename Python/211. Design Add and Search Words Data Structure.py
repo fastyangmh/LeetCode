@@ -1,64 +1,37 @@
-from collections import deque
-
-
 class WordDictionary:
-
     def __init__(self):
-        self.data = {}
+        self.children = {}
         self.is_end = False
 
     def addWord(self, word: str) -> None:
         node = self
 
-        for ch in word:
-            if ch not in node.data:
-                node.data[ch] = WordDictionary()
-            node = node.data[ch]
+        for char in word:
+            if char not in node.children:
+                node.children[char] = WordDictionary()
+            node = node.children[char]
 
         node.is_end = True
 
     def search(self, word: str) -> bool:
-        # method1
         def dfs(node, idx):
             if idx == len(word):
                 return node.is_end
 
-            ch = word[idx]
+            char = word[idx]
 
-            if ch == ".":
-                for child in node.data.values():
+            if char == ".":
+                for child in node.children.values():
                     if dfs(child, idx + 1):
                         return True
+
                 return False
-            elif ch in node.data:
-                return dfs(node.data[ch], idx + 1)
+            elif char in node.children:
+                return dfs(node.children[char], idx + 1)
             else:
                 return False
 
         return dfs(self, 0)
-
-        # # method2
-        # queue = deque([self])
-        # depth = 0
-
-        # while queue and depth < len(word):
-        #     ch = word[depth]
-
-        #     for _ in range(len(queue)):
-        #         node = queue.popleft()
-
-        #         if ch == ".":
-        #             queue.extend([child for child in node.data.values()])
-
-        #         if ch in node.data:
-        #             queue.append(node.data[ch])
-
-        #     if not queue:
-        #         return False
-
-        #     depth += 1
-
-        # return any(node.is_end for node in queue)
 
 
 # Your WordDictionary object will be instantiated and called as such:

@@ -1,15 +1,13 @@
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        groups = {}
+    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+        seen = {}
 
         for s in strs:
-            cnt = [0] * 26
+            chars = [0] * 26
 
             for c in s:
-                i = ord(c) - ord("a")
-                cnt[i] += 1
+                chars[ord(c) - ord("a")] += 1
 
-            key = tuple(cnt)
-            groups.setdefault(key, []).append(s)
+            seen.setdefault(tuple(chars), []).append(s)
 
-        return [v for v in groups.values()]
+        return list(seen.values())

@@ -1,10 +1,7 @@
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-
-        unique_nums = set(nums)
+    def longestConsecutive(self, nums: list[int]) -> int:
         ans = 0
+        unique_nums = set(nums)
 
         for i in unique_nums:
             if i - 1 in unique_nums:
